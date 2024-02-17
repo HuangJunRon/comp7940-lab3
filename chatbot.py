@@ -33,12 +33,19 @@ def main():
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("echo", echo))
+    dispatcher.add_handler(CommandHandler("hello", hello))
     
     # To start the bot:
     updater.start_polling()
     updater.idle()
 
 
+def hello(update, context):
+    reply_message = "Good day, " + context.args[0]+ "!"
+    logging.info("Update: " + str(update))
+    logging.info("context: " + str(context))
+    context.bot.send_message(chat_id=update.effective_chat.id, text= reply_message)
 
 def echo(update, context):
     reply_message = update.message.text.upper()
